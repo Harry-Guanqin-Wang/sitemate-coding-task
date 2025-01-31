@@ -10,7 +10,7 @@ export const apiClient = async (
   body = null
 ) => {
   // Add API Key to app request as it needed
-  const qureyParams = new URLSearchParams({
+  const queryParams = new URLSearchParams({
     ...params,
     apiKey: API_KEY,
   });
