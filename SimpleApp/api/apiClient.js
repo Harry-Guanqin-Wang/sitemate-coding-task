@@ -25,7 +25,7 @@ export const apiClient = async (
   const url = `${baseUrl}?${queryParams.toString()}`;
 
   try {
-    const response = await fetch(url, body);
+    const response = await fetch(url, config);
 
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`);
