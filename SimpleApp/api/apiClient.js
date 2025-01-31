@@ -15,17 +15,17 @@ export const apiClient = async (
     apiKey: API_KEY,
   });
 
-  // config part and headers of request
-  const config = {
-    method: method,
-    body: JSON.stringify(body),
-  };
+  // config part and headers of request, this is deleted, later found out some options not allowed
+  // const config = {
+  //   method: method,
+  //   body: JSON.stringify(body),
+  // };
 
   const baseUrl = endpoint ? `${API_BASE_URL}/${endpoint}` : `${API_BASE_URL}`;
   const url = `${baseUrl}?${queryParams.toString()}`;
 
   try {
-    const response = await fetch(url, config);
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`);
