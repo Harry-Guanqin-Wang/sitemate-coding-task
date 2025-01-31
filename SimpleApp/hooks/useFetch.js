@@ -7,11 +7,16 @@ const useFetch = (apiFunc) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!apiFunc) return;
+
+      setLoading(true);
       try {
         const result = await apiFunc();
         setData(result);
+        setError(null);
       } catch (error) {
         setError(error);
+        setData(null);
       } finally {
         setLoading(false);
       }
