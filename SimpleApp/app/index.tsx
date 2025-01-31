@@ -16,6 +16,7 @@ export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const [shouldFetch, setShouldFetch] = useState(false);
 
+  // API Call to load in the data
   const fetchNews = useCallback(() => {
     if (shouldFetch) {
       return searchNews({ query: searchQuery });
@@ -24,12 +25,21 @@ export default function Index() {
   }, [searchQuery, shouldFetch]);
 
   const { data, loading, error } = useFetch(fetchNews);
-  console.log(data, loading, error);
 
+  // handle event listener
   const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      return;
+    }
     setShouldFetch(true);
   };
 
+  const handleInputChange = (text) => {
+    setSearchQuery(text);
+    setShouldFetch(false);
+  };
+
+  // Helper function for rendering the news list
   const renderNewsItem = ({ item }) => (
     <View className="p-4 border-b border-gray-200">
       <Text className="text-lg font-bold mb-2">{item.title}</Text>
@@ -52,7 +62,7 @@ export default function Index() {
           <TextInput
             className="flex-1 h-10 px-4 border border-gray-300 rounded-lg"
             value={searchQuery}
-            onChangeText={setSearchQuery}
+            onChangeText={handleInputChange}
             placeholder="Type in keyword to search news..."
           />
 
@@ -68,11 +78,11 @@ export default function Index() {
         {/* Display Area */}
         <View className="h-full items-center justify-center">
           {loading ? (
-            <View className="justify-center items-center">
+            <View className=" flex-1 justify-center items-center">
               <ActivityIndicator size="large" color="blue" />
             </View>
           ) : error ? (
-            <View className="justify-center items-center">
+            <View className=" flex-1 justify-center items-center">
               <Text className="text-red-500">Error: {error.message}</Text>
               <Text className="text-red-500">Please Retry</Text>
             </View>
@@ -84,8 +94,10 @@ export default function Index() {
             />
           ) : (
             // Display the initial text without news
-            <View className="justify-center items-center">
-              <Text>Please search for news articles</Text>
+            <View className=" flex-1 justify-center items-center">
+              <Text className="text-gray-600 text-lg">
+                Please enter keywords and press Search
+              </Text>
             </View>
           )}
         </View>
