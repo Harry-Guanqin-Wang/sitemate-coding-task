@@ -1,7 +1,7 @@
 // Note: These data should be normally imported from .env
 // this approach is not used for the purpose of the assignment
 const API_BASE_URL = "https://newsapi.org/v2";
-const API_KEY = "183daca270264bad86fc5b72972fb82a";
+const API_KEY = "57f509ff89c14a96a40bdc0b86b5db30";
 
 export const apiClient = async (
   endpoint,
